@@ -1,17 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Planets from "./pages/planets/Planets";
+import PlanetDetail from "./pages/planets/components/PlanetDetail";
+import ResidentDetail from "./pages/resident/components/ResidentDetail";
+import Breadcrumbs from "./pages/planets/components/Breadcrumbs";
+import NotFound from "./pages/NotFound";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./assets/scss/style.css";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <BrowserRouter>
+    <Breadcrumbs />
+    <Routes>
+      {/* redirect a la ruta planets */}
+      <Route path="/" element={<Navigate to="/planets" />} />
+      <Route path="planets" element={<Planets />} />
+      <Route path="planets/:planetId" element={<PlanetDetail />} />
+      <Route path="planets/:planetId/:id" element={<ResidentDetail />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  </BrowserRouter>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
